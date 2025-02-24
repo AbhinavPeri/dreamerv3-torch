@@ -4,10 +4,11 @@ import os
 import pathlib
 import sys
 
-os.environ["MUJOCO_GL"] = "osmesa"
+from ruamel.yaml import YAML
+
+# os.environ["MUJOCO_GL"] = "osmesa"
 
 import numpy as np
-import ruamel.yaml as yaml
 
 sys.path.append(str(pathlib.Path(__file__).parent))
 
@@ -343,9 +344,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--configs", nargs="+")
     args, remaining = parser.parse_known_args()
-    configs = yaml.safe_load(
-        (pathlib.Path(sys.argv[0]).parent / "configs.yaml").read_text()
-    )
+    yaml = YAML(typ="safe", pure=True)
+    configs = yaml.load((pathlib.Path(sys.argv[0]).parent / "configs.yaml").read_text())
 
     def recursive_update(base, update):
         for key, value in update.items():
