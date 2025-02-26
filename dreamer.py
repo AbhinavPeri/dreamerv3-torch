@@ -6,7 +6,7 @@ import sys
 
 from ruamel.yaml import YAML
 
-# os.environ["MUJOCO_GL"] = "osmesa"
+os.environ["MUJOCO_GL"] = "osmesa"
 
 import numpy as np
 
@@ -22,6 +22,7 @@ import torch
 from torch import nn
 from torch import distributions as torchd
 
+import wandb
 
 to_np = lambda x: x.detach().cpu().numpy()
 
@@ -205,6 +206,7 @@ def make_env(config, mode, id):
 
 
 def main(config):
+        
     tools.set_seed_everywhere(config.seed)
     if config.deterministic_run:
         tools.enable_deterministic_run()
@@ -221,6 +223,10 @@ def main(config):
     config.traindir.mkdir(parents=True, exist_ok=True)
     config.evaldir.mkdir(parents=True, exist_ok=True)
     step = count_steps(config.traindir)
+   
+    wandb.tensorboard.patch(root_logdir=str(logdir))  # Add this before wandb.init
+    wandb.init(project="Dreamer V4", sync_tensorboard=True)
+
     # step in logger is environmental step
     logger = tools.Logger(logdir, config.action_repeat * step)
 

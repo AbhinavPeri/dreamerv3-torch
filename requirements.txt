@@ -1,7 +1,7 @@
 torch
 matplotlib
 ruamel.yaml
-moviepy
+moviepy==1.0.3
 einops
 protobuf
 gym
@@ -12,3 +12,4 @@ crafter
 opencv-python
 numpy
 tensorboard
+wandb

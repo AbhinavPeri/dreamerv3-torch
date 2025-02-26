@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while true; do
+# while true; do
     python3 dreamer.py --configs dmc_vision --task dmc_humanoid_run --logdir ./logdir/dmc_humanoid_run
     EXIT_CODE=$?
 
@@ -11,4 +11,4 @@ while true; do
         echo "Script crashed with exit code $EXIT_CODE. Restarting..."
         sleep 1  # Short pause before restarting (optional)
     fi
-done
+# done

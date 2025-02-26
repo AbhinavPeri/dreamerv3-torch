@@ -1,4 +1,5 @@
 #
+wandb*
 run*
 logdir*
 vis_*
